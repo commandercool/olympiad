@@ -1,0 +1,80 @@
+/* 
+    Document   : tamplate
+    Created on : May 3, 2013, 4:04:48 PM
+    Author     : alex
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+* {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box
+}
+
+body {
+    /*font-family: arial,sans-serif;*/
+    /*font-family: 'Trebuchet MS',Verdana,Arial,Sans-Serif;*/
+    font-family: Verdana,sans-serif;
+    color: #333333;
+    margin: 0;
+}
+
+a {
+    color: #1E4F69;
+    text-decoration: none;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+}
+
+#header a {
+    text-decoration: none;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+}
+
+a:hover {
+    color: #BF0000;
+    text-decoration: none;
+    border-bottom-color: #BF0000;
+}
+
+#header a:hover {
+    border-bottom-color: #BF0000;
+}
+
+a:disabled {
+    color: #D9E0E7;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+#page, #header {
+    margin: 0 auto;
+    min-width: 850px;
+    max-width: 1024px;
+}
+
+#page {
+    border-color: #D9E0E7;
+    border-radius: 0 0 10px 10px;
+    border-style: dashed;
+    border-width: 0 2px 2px;
+    padding-top: 10px;
+}
+
+#header {
+    background-color: #F0F0F0;
+    border-color: #D9E0E7;
+    border-style: dashed;
+    border-width: 0 2px 2px;
+    height: 50px;
+    padding: 10px;
+}
+
+#content {
+    padding: 10px 20px 30px;
+}

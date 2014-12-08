@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - регистрация для участия
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Регистрация для участия в олимпиаде</h1>
+                <h:outputLabel value="Заполните поля формы и нажмите кнопку &quot;Регистрация&quot;"
+                               class="text-layout"/>
+                <h:outputLabel value="*Обратите внимание: все поля формы регистрации обязательны для заполнения"
+                               class="tip-text text-layout"/>
+                <h:messages class="err-message"/>
+                <h:form prependId="false">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Фамилия:"/>
+                        <h:inputText id="Lname" value="#{registration.user.lname}" required="true"
+                                     requiredMessage="Укажите свою фамилию" style="width: 300px"/>
+                        <h:outputLabel value="Имя:"/>
+                        <h:inputText id="Fname" value="#{registration.user.fname}" required="true"
+                                     requiredMessage="Укажите свое имя" style="width: 300px"/>
+                        <h:outputLabel value="Отчество:"/>
+                        <h:inputText id="Patronymic" value="#{registration.user.patronymic}" required="true"
+                                     requiredMessage="Укажите свое отчество" style="width: 300px"/>
+                        <h:outputLabel value="Логин:"/>
+                        <h:inputText id="Login" value="#{registration.user.login}" required="true"
+                                     requiredMessage="Укажите логин" style="width: 300px" validator="#{registration.validate}"/>
+                        <h:outputLabel value="Пароль:"/>
+                        <h:inputSecret id="password" value="#{registration.user.password}" required="true"
+                                     requiredMessage="Выберите пароль" style="width: 300px"/>
+                        <h:outputLabel value="Подтверждение пароля:"/>
+                        <h:inputSecret id="passwordConf" required="true" value="#{registration.passConfirm}"
+                                       requiredMessage="Введите подтверждение для пароля" style="width: 300px"/>
+                        <h:outputLabel value="Адрес электронной почты:"/>
+                        <h:inputText id="Email" value="#{registration.user.email}" required="true"
+                                     requiredMessage="Укажите адрес электронной почты" style="width: 300px" validator="#{registration.validate}"/>
+                        <h:outputLabel value="Место учебы:"/>
+                        <h:inputText id="Belong" value="#{registration.user.belong}" required="true"
+                                     requiredMessage="Укажите место учебы" style="width: 300px"/>
+                        <h:panelGroup/>
+                        <h:commandLink value="Регистрация →" style="float: right"
+                                       action="#{registration.register}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

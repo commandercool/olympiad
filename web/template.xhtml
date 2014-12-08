@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="tamplate.css"/>
+        <h:outputStylesheet library="css" name="olympic.css"/>
+        <h:outputScript library="js" name="jquery-1.9.1.min.js" target="body"/>
+        <title><ui:insert name="title"/></title>
+    </h:head>
+
+    <h:body>
+        <c:set value="#{request.remoteUser != null}" var="loggedin"/>
+        <c:set value="#{facesContext.externalContext.isUserInRole('Admin')}" var="admin"/>
+        <c:set value="#{facesContext.externalContext.isUserInRole('Writer')}" var="writer"/>
+        <c:set value="#{facesContext.externalContext.isUserInRole('Participant')}" var="participant"/>
+        <div id="header">
+            <h:link value="На главную" outcome="index" style="float: left"/>
+            <!--Иструменты администратора-->
+            <h:panelGroup rendered="#{admin}">
+                <h:link value="Добавить новость"/>
+                <h:link value="Составить расписание туров" style="margin: 0 10px"/>
+            </h:panelGroup>
+            <!--Инструменты составителя заданий-->
+            <h:panelGroup rendered="#{writer || admin}" style="float: left; margin: 0 10px">
+                <h:link value="Список заданий" outcome="tasklist"/>
+            </h:panelGroup>
+            <!--Инструменты участника олимпиады-->
+            <h:panelGroup rendered="#{participant}" style="float: left; margin: 0 10px">
+                <h:link value="Приступить к выполнению заданий" outcome="tasksthrough"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!loggedin}" style="float: right; margin-top: -5px; font-size: 10pt">
+                <h:outputLabel value="Вы не авторизованы" style="display: block; float: right"/>
+                <div style="clear: right"/>
+                <h:link value="Войти" outcome="login" style="float: right"/>
+                <h:link value="Зарегестрироваться" outcome="register" style="float: right; margin-right: 5px"/>
+            </h:panelGroup>
+            <h:form rendered="#{loggedin}" style="float: right; margin-top: -5px; font-size: 10pt">
+                <h:outputLabel value="#{olimpiadContext.fullName}" style="display: block"/>
+                <h:commandLink value="Выйти" action="#{olimpiadContext.logout()}" style="float: right"/>
+            </h:form>
+            <ui:insert name="header"/>
+        </div>
+        <div id="page">
+            <div id="content">
+                <ui:insert name="content"/>
+            </div>
+        </div>
+        <!--MatJax-->    
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        </script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"/>
+    </h:body>
+
+</html>

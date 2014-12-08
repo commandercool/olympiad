@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - Выполнение заданий
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <h:panelGroup rendered="#{!tasksThrough.compiled}">
+                    <h1>Задание №#{tasksThrough.current}</h1>
+                    <h:panelGrid columns="2" style="margin: 20px 0 20px" width="100%"
+                                 columnClasses="task-column-left, task-column-right">
+                        <h:outputText value="#{tasksThrough.currentTask.text}"/>
+                        <h:graphicImage value="#{!tasksThrough.currentTask.resourceList.isEmpty() ?
+                                             tasksThrough.currentTask.resourceList.get(0).resPath : ''}" style="max-width: 425px"/>
+                    </h:panelGrid>
+                    <h:form prependId="false">
+                        <div style="display: block">
+                            <h:outputLabel value="Ответ:" style="display: inline-block; margin-right: 10px"/>
+                            <h:inputText id="answer" value="#{tasksThrough.answer}" converterMessage="Ответ должен быть 
+                                         приведен в целочисленном виде!" style="margin-right: 10px"/>
+                            <h:message for="answer" style="color: #D20005"/>
+                        </div>
+                        <div style="margin-top: 25px;">
+                            <h:commandLink value="←Предыдущий вопрос" actionListener="#{tasksThrough.prevTask}" disabled="#{!tasksThrough.hasPrev}"/>
+                            <h:commandLink value="Следующий вопрос→" actionListener="#{tasksThrough.nextTask}" rendered="#{tasksThrough.hasNext}"
+                                           style="float: right"/>
+                            <h:commandLink value="Завершить тест→" action="finishtour" rendered="#{!tasksThrough.hasNext}" style="float: right"/>
+                        </div>
+                    </h:form>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{tasksThrough.compiled}">
+                    <h:outputLabel value="Вы уже проходили текущий тур олимпиады"/>
+                </h:panelGroup>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

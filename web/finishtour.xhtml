@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Завершение прохождения тура</h1>
+                <h:panelGroup rendered="#{!tasksThrough.compiled}">
+                    <h:dataTable value="#{tasksThrough.answerMap}" var="entry" border="1"
+                                 style="border-collapse: collapse; text-align: center" width="100%">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Код задания"/>
+                            </f:facet>
+                            <h:outputLabel value="#{entry.key.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Текст задания"/>
+                            </f:facet>
+                            <h:outputLabel value="#{entry.key.text}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Ответ"/>
+                            </f:facet>
+                            <h:outputLabel value="#{entry.value != null ? entry.value : 'ответ не дан'}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:form prependId="false">
+                        <h:commandLink value="Отослать результаты" style="float: right; margin-top: 15px"
+                                       actionListener="#{tasksThrough.submitResults()}"/>
+                        <div style="clear: right"/>
+                    </h:form>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{tasksThrough.compiled}">
+                    <h:outputLabel value="Ваши ответы успешно отправлены. Результаты прохождения тура будут известны 
+                                   такого-то числа"/>
+                </h:panelGroup>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

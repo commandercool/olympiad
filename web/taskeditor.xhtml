@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <h:body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - Редактор заданий
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{taskEditor.listener}"/>
+                <h1>Редактор заданий</h1>
+                <h:form enctype="multipart/form-data" prependId="false">
+                    <h:panelGrid columns="6" style="margin: 10px 0">
+                        <h:outputLabel value="Код олимпиады:"/>
+                        <h:selectOneMenu value="#{taskEditor.task.season}" style="margin-right: 10px">
+                            <f:selectItem itemValue="13" itemLabel="13"/>
+                            <f:selectItem itemValue="14" itemLabel="14"/>
+                            <f:selectItem itemValue="15" itemLabel="15"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Код тура:"/>
+                        <h:selectOneMenu value="#{taskEditor.task.tour}" style="margin-right: 10px">
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Номер задания:"/>
+                        <h:inputText value="#{taskEditor.task.serial}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" width="100%" columnClasses="left-column,right-column"
+                                 styleClass="edit-task-table">
+                        <h:outputLabel value="Текст задания:" style="font-size: 14pt"/>
+                        <h:outputLabel value="Предварительный просмотр:" style="font-size: 14pt"/>
+                        <h:inputTextarea id="message" rows="15" value="#{taskEditor.task.text}" onkeyup="$('#preview').html(jQuery('textarea#message').val());
+                            MathJax.Hub.Queue(['Typeset',MathJax.Hub,'preview']);" style="width: 100%"/>
+                        <h:outputText id="preview" style="padding: 10px; display: block" value="#{taskEditor.task.text}"/>
+                        <h:outputLabel value="Прикрепить изображение:" style="font-size: 14pt"/>
+                        <h:outputLabel value="Прикрепленное изображение:" style="font-size: 14pt"/>
+                        <h:panelGroup>
+                            <t:inputFileUpload value="#{taskEditor.uploadedFile}" style="display: block"/>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputLink rendered="#{taskEditor.task.resourceList.size() != 0}" value="#{taskEditor.task.resourceList.get(0).resPath}">Просмотр</h:outputLink>
+                            <h:outputLabel rendered="#{taskEditor.task.resourceList.size() == 0}" value="Нет"/>
+                        </h:panelGroup>
+                        <h:panelGroup style="margin-top: 10px; display: block" >
+                            <h:outputLabel value="Ответ:" style="font-size: 14pt; margin-right: 10px"/>
+                            <h:inputText id="answer" value="#{taskEditor.task.answer}" converterMessage="Ответ должен быть 
+                                         приведен в целочисленном виде!" style="margin-right: 10px"/>
+                            <h:message for="answer" style="color: #D20005"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <div style="margin-top: 10px">
+                        <h:outputLink value="tasklist.xhtml">← Вернуться к списку заданий</h:outputLink>
+                        <h:link value="Предварительный просмотр" outcome="preview" style="margin-left: 10px">
+                            <f:param name="taskid" value="#{taskEditor.task.id}"/>
+                        </h:link>
+                        <h:commandLink value="Сохранить" actionListener="#{taskEditor.saveTask}" style="margin-left: 10px"/>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

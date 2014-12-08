@@ -1,0 +1,59 @@
+/* 
+    Document   : olympic
+    Created on : May 2, 2013, 9:36:20 PM
+    Author     : alex
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.left-column, .right-column {
+    padding: 10px;
+    width: 50%;
+    vertical-align: top;
+}
+
+.left-column {
+    border-width: 0 2px 0 0;
+    border-color: #D9E0E7;
+    border-style: dashed;
+}
+
+.edit-task-table {
+    border-width: 2px 0 2px 0;
+    border-color: #D9E0E7;
+    border-style: dashed;
+}
+
+.login-form {
+    border-color: #D9E0E7;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    margin: 30px auto;
+    padding: 10px;
+    width: 275px;
+}
+
+.err-message {
+    background-color: #FFF0E2;
+    border-radius: 5px 5px 5px 5px;
+    border-style: dashed;
+    border-width: 1px;
+    color: #BF0000;
+    padding: 10px 10px 10px 25px;
+}
+
+.text-layout {
+    margin: 10px 0;
+    display: block;
+}
+
+.tip-text {
+    font-size: 10pt;
+    color: #878787;
+    font-style: italic;
+}
+
+.task-column-left, task-colimn-right {
+    width: 50%;
+}

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - Предпросмотр задания
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{taskEditor.listener}"/>
+                <h1>Предпросмотр задания #{taskEditor.task.id} 
+                    (#{taskEditor.task.season}:#{taskEditor.task.tour}:#{taskEditor.task.serial})</h1>
+                <h:panelGrid columns="2" style="margin: 20px 0 20px" width="100%"
+                             columnClasses="task-column-left, task-column-right">
+                    <h:outputText value="#{taskEditor.task.text}"/>
+                    <h:graphicImage value="#{!taskEditor.task.resourceList.isEmpty() ? taskEditor.task.resourceList.get(0).resPath : 'Нет'}" style="max-width: 425px"/>
+                </h:panelGrid>
+                <h:link value="← Вернуться в редактор" outcome="taskeditor">
+                    <f:param name="taskid" value="#{taskEditor.task.id}"/>
+                </h:link>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

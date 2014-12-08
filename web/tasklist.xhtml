@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - Список заданий
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Список заданий</h1>
+                <div style="padding: 10px 0; border-width: 2px 0; border-style: dashed;
+                     border-color: #D9E0E7">
+                    <h:form>
+                        <h:panelGrid columns="5" style="margin: 10px 0;">
+                            <h:outputLabel value="Код олимпиады:"/>
+                            <h:selectOneMenu value="#{taskViewer.season}" style="margin-right: 10px">
+                                <f:selectItem itemLabel="" noSelectionOption="true"/>
+                                <f:selectItem itemValue="13" itemLabel="13"/>
+                                <f:selectItem itemValue="14" itemLabel="14"/>
+                                <f:selectItem itemValue="15" itemLabel="15"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Код тура:"/>
+                            <h:selectOneMenu value="#{taskViewer.tour}" style="margin-right: 10px">
+                                <f:selectItem itemLabel="" noSelectionOption="true"/>
+                                <f:selectItem itemValue="1" itemLabel="1"/>
+                                <f:selectItem itemValue="2" itemLabel="2"/>
+                            </h:selectOneMenu>
+                            <h:commandLink value="Применить фильтр" actionListener="#{taskViewer.filter}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+                <h:link value="+ Добавить задание" outcome="taskeditor" style="display: inline-block;margin: 10px 0;">
+                    <f:param name="taskid" value="new"/>
+                </h:link>
+                <h:dataTable value="#{taskViewer.taskList}" var="task" border="1"
+                             style="border-collapse: collapse; text-align: center" width="100%">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Код олимпиады"/>
+                        </f:facet>
+                        <h:outputLabel value="#{task.season}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Код тура"/>
+                        </f:facet>
+                        <h:outputLabel value="#{task.tour}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="№ задания"/>
+                        </f:facet>
+                        <h:outputLabel value="#{task.serial}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Текст задания"/>
+                        </f:facet>
+                        <h:outputLabel value="#{task.text}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Иллюстрация"/>
+                        </f:facet>
+                        <h:outputLabel rendered="#{task.resourceList.isEmpty()}" value="Нет"/>
+                        <h:outputLink rendered="#{!task.resourceList.isEmpty()}" value="#{task.resourceList.get(0).resPath}">Просмотр</h:outputLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Ответ"/>
+                        </f:facet>
+                        <h:outputLabel value="#{task.answer}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Действия"/>
+                        </f:facet>
+                        <h:link value="Редактировать" outcome="taskeditor">
+                            <f:param name="taskid" value="#{task.id}"/>
+                        </h:link>
+                        <h:form>
+                            <h:commandLink value="Удалить"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Олимпиада - Авторизация
+            </ui:define>
+
+            <ui:define name="header">
+            </ui:define>
+
+            <ui:define name="content">
+                <div style="margin: 20px auto; text-align: center">
+                    <h1>Войдите или зарегистрируйтесь</h1>
+                    <h:outputLabel value="Введены неверный логин или пароль. Пожалуйста, повторите попытку"
+                                   rendered="#{param.errlogin == true}" style="color: #BF0000"/>
+                </div>
+                <div class="login-form">
+                    <form method="post" action="j_security_check">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Логин:" />
+                            <input type="text" name="j_username" />
+                            <h:outputLabel value="Пароль:" />
+                            <input type="password" name="j_password" />
+                            <h:link value="Регистрация" style="font-size: 11pt" outcome="register"/>
+                            <h:commandButton value="Войти" style="float: right"/>
+                        </h:panelGrid>
+                    </form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
